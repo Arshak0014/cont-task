@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BrainFors
- * Date: 6/15/2020
- * Time: 2:44 PM
- */
 
 namespace application\controllers;
 
@@ -63,18 +57,13 @@ class CinemaController extends BaseController
 
     public function actionBook($id){
 
+        $present = Cinema::getPresentById($id);
+
         $cinemaId = Router::getSegment(4);
-
-//        $x = Cinema::getPresentById($moveId);
-//
-//        debug($x);
-
-
 
         if (isset($_POST['submitShipConfirm'])){
             Cinema::bookById($id,$cinemaId);
             Cinema::bookChangeStatus($id,$cinemaId);
-//            View::redirect("/cinema/presents/$cinemaId/$id");
         }
 
         $this->view->render('cinema/book');

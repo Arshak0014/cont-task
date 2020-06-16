@@ -117,5 +117,30 @@ ul.social-footer2 li a {display: block;	height:30px;width: 30px;text-align: cent
 .free-places a:hover{
     color: green;
 }
+.reserved-places{
+    width: 40px;
+    height: 40px;
+    background: darkred;
+    margin: 2px;
+    border-radius: 50%;
+    border: 2px solid greenyellow;
+    cursor: pointer;
+}
+.reserved-places:hover{
+    background: red;
+}
+.reserved-places a{
+    padding: 13px;
+    color: darkred;
+}
+.reserved-places a:hover{
+    color: red;
+}
 
 
+.not-active {
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+    color: black;
+}

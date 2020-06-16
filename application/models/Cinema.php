@@ -171,7 +171,6 @@ class Cinema
 
     public static function bookChangeStatus($id,$cinemaId){
 
-
         $update = null;
 
         if ($cinemaId == 4){

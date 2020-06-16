@@ -5,6 +5,5 @@
 
     <form method="post" class="p-3">
         <input class="p-2" style="font-weight: bold;cursor: pointer;background: green;color: white" type="submit" name="submitShipConfirm" value="CONFIRM">
-        <a style="margin-left: 20px;font-weight: bold;cursor: pointer"  href="">CANCEL</a>
     </form>
 </div>
