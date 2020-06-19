@@ -57,13 +57,17 @@ class CinemaController extends BaseController
 
     public function actionBook($id){
 
-        $present = Cinema::getPresentById($id);
 
-        $cinemaId = Router::getSegment(4);
+        $placeId = Router::getSegment(5);
+        $presentId = Router::getSegment(4);
+
 
         if (isset($_POST['submitShipConfirm'])){
-            Cinema::bookById($id,$cinemaId);
-            Cinema::bookChangeStatus($id,$cinemaId);
+            Cinema::bookById($id,$placeId,$presentId);
+
+            Cinema::bookChangeStatus($id,$placeId,$presentId);
+
+            View::redirect("/cinema/presents/$id/$presentId");
         }
 
         $this->view->render('cinema/book');

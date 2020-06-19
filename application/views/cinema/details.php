@@ -44,7 +44,7 @@
     <tr>
         <th><img style="width: 50px" src="../../../assets/images/<?= $present['image'] ?>" alt=""></th>
         <td><?= $present['film_name'] ?></td>
-        <td><?= $present['film_name'] ?></td>
+        <td><?= $present['film_year'] ?></td>
         <td><?= $present['show_date'] ?></td>
         <td><a class="buy-tick" href="/cinema/presents/<?= $data['cinema']['id'] ?>/<?= $present['id']?>">Book</a></td>
     </tr>

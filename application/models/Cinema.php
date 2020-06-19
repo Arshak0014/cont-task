@@ -103,6 +103,7 @@ class Cinema
     }
 
     public static function getPresentById($id){
+
         $db = Db::getConnection();
 
         $sql = 'SELECT * FROM presents WHERE id = :id';
@@ -157,30 +158,29 @@ class Cinema
         return $id;
     }
 
-    public static function bookById($id,$cinemaId){
+    public static function bookById($id,$cinemaId,$presentId){
+
+     //        $presentId = self::getPresentById($id);
 
 
-//        $presentId = self::getPresentById($id);
-
-
-        $create = Db::getConnection()->prepare("INSERT INTO `booking` (`cinema_id`,`status`) VALUES
-                       ('$cinemaId','1')");
+        $create = Db::getConnection()->prepare("INSERT INTO `booking` (`cinema_id`,`present_id`,`status`) VALUES
+                       ('$cinemaId','$presentId','1')");
         $create->execute();
         return true;
     }
 
-    public static function bookChangeStatus($id,$cinemaId){
+    public static function bookChangeStatus($cinemaId,$placeId,$presentId){
 
         $update = null;
 
         if ($cinemaId == 4){
-            $update = Db::getConnection()->prepare("UPDATE `places_le_brady` SET `status` = '2' where id = '$id';");
+            $update = Db::getConnection()->prepare("UPDATE `places_le_brady` SET `status` = '2' where id = '$placeId';");
         }elseif ($cinemaId == 3){
-            $update = Db::getConnection()->prepare("UPDATE `places_prince` SET `status` = '2' where id = '$id';");
+            $update = Db::getConnection()->prepare("UPDATE `places_prince` SET `status` = '2' where id = '$placeId';");
         }elseif ($cinemaId == 5){
-            $update = Db::getConnection()->prepare("UPDATE `places_cine_cite` SET `status` = '2' where id = '$id';");
+            $update = Db::getConnection()->prepare("UPDATE `places_cine_cite` SET `status` = '2' where id = '$placeId';");
         }elseif ($cinemaId == 6){
-            $update = Db::getConnection()->prepare("UPDATE `place_rome_cinema` SET `status` = '2' where id = '$id';");
+            $update = Db::getConnection()->prepare("UPDATE `place_rome_cinema` SET `status` = '2' where id = '$placeId';");
         }
         $update->execute();
         return true;

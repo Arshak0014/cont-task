@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 16, 2020 at 11:14 AM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.3.0
+-- Хост: 127.0.0.1
+-- Время создания: Июн 19 2020 г., 05:49
+-- Версия сервера: 10.4.11-MariaDB
+-- Версия PHP: 7.2.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,13 +18,47 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `cinema`
+-- База данных: `cinema`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cinemas`
+-- Структура таблицы `booking`
+--
+
+CREATE TABLE `booking` (
+  `id` int(11) NOT NULL,
+  `cinema_id` int(11) NOT NULL,
+  `present_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `booking`
+--
+
+INSERT INTO `booking` (`id`, `cinema_id`, `present_id`, `status`) VALUES
+(24, 4, 14, 1),
+(25, 4, 14, 1),
+(26, 4, 14, 1),
+(27, 6, 14, 1),
+(28, 5, 14, 1),
+(29, 6, 14, 1),
+(30, 3, 14, 1),
+(31, 6, 14, 1),
+(32, 5, 14, 1),
+(33, 5, 14, 1),
+(34, 3, 11, 1),
+(35, 3, 11, 1),
+(64, 4, 14, 1),
+(65, 4, 14, 1),
+(66, 4, 14, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `cinemas`
 --
 
 CREATE TABLE `cinemas` (
@@ -40,7 +73,7 @@ CREATE TABLE `cinemas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `cinemas`
+-- Дамп данных таблицы `cinemas`
 --
 
 INSERT INTO `cinemas` (`id`, `places_id`, `name`, `slug`, `description`, `city`, `image`, `address`) VALUES
@@ -52,19 +85,7 @@ INSERT INTO `cinemas` (`id`, `places_id`, `name`, `slug`, `description`, `city`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
---
-
-CREATE TABLE `orders` (
-  `id` int(11) NOT NULL,
-  `cinema_id` int(11) NOT NULL,
-  `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `places_cine_cite`
+-- Структура таблицы `places_cine_cite`
 --
 
 CREATE TABLE `places_cine_cite` (
@@ -73,7 +94,7 @@ CREATE TABLE `places_cine_cite` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `places_cine_cite`
+-- Дамп данных таблицы `places_cine_cite`
 --
 
 INSERT INTO `places_cine_cite` (`id`, `status`) VALUES
@@ -97,7 +118,7 @@ INSERT INTO `places_cine_cite` (`id`, `status`) VALUES
 (18, 1),
 (19, 1),
 (20, 1),
-(21, 1),
+(21, 2),
 (22, 1),
 (23, 1),
 (24, 1),
@@ -141,7 +162,7 @@ INSERT INTO `places_cine_cite` (`id`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `places_le_brady`
+-- Структура таблицы `places_le_brady`
 --
 
 CREATE TABLE `places_le_brady` (
@@ -151,7 +172,7 @@ CREATE TABLE `places_le_brady` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `places_le_brady`
+-- Дамп данных таблицы `places_le_brady`
 --
 
 INSERT INTO `places_le_brady` (`id`, `cinema_table_id`, `status`) VALUES
@@ -193,7 +214,7 @@ INSERT INTO `places_le_brady` (`id`, `cinema_table_id`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `places_prince`
+-- Структура таблицы `places_prince`
 --
 
 CREATE TABLE `places_prince` (
@@ -202,14 +223,14 @@ CREATE TABLE `places_prince` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `places_prince`
+-- Дамп данных таблицы `places_prince`
 --
 
 INSERT INTO `places_prince` (`id`, `status`) VALUES
 (1, 1),
 (2, 1),
 (3, 1),
-(4, 1),
+(4, 2),
 (5, 1),
 (6, 1),
 (7, 1),
@@ -253,7 +274,7 @@ INSERT INTO `places_prince` (`id`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `place_rome_cinema`
+-- Структура таблицы `place_rome_cinema`
 --
 
 CREATE TABLE `place_rome_cinema` (
@@ -262,7 +283,7 @@ CREATE TABLE `place_rome_cinema` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `place_rome_cinema`
+-- Дамп данных таблицы `place_rome_cinema`
 --
 
 INSERT INTO `place_rome_cinema` (`id`, `status`) VALUES
@@ -270,7 +291,7 @@ INSERT INTO `place_rome_cinema` (`id`, `status`) VALUES
 (2, 1),
 (3, 1),
 (4, 1),
-(5, 1),
+(5, 2),
 (6, 1),
 (7, 1),
 (8, 1),
@@ -321,7 +342,7 @@ INSERT INTO `place_rome_cinema` (`id`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `presents`
+-- Структура таблицы `presents`
 --
 
 CREATE TABLE `presents` (
@@ -334,7 +355,7 @@ CREATE TABLE `presents` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `presents`
+-- Дамп данных таблицы `presents`
 --
 
 INSERT INTO `presents` (`id`, `cinemas_id`, `film_name`, `film_year`, `image`, `show_date`) VALUES
@@ -360,112 +381,121 @@ INSERT INTO `presents` (`id`, `cinemas_id`, `film_name`, `film_year`, `image`, `
 (20, 6, 'Artemis Fowl', '2020', 'joker.jpg', '2020-06-16');
 
 --
--- Indexes for dumped tables
+-- Индексы сохранённых таблиц
 --
 
 --
--- Indexes for table `cinemas`
+-- Индексы таблицы `booking`
+--
+ALTER TABLE `booking`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cinema_id` (`cinema_id`),
+  ADD KEY `present_id` (`present_id`);
+
+--
+-- Индексы таблицы `cinemas`
 --
 ALTER TABLE `cinemas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `places_id` (`places_id`);
 
 --
--- Indexes for table `orders`
---
-ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `places_cine_cite`
+-- Индексы таблицы `places_cine_cite`
 --
 ALTER TABLE `places_cine_cite`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `places_le_brady`
+-- Индексы таблицы `places_le_brady`
 --
 ALTER TABLE `places_le_brady`
   ADD PRIMARY KEY (`id`),
   ADD KEY `cinema_table_id` (`cinema_table_id`);
 
 --
--- Indexes for table `places_prince`
+-- Индексы таблицы `places_prince`
 --
 ALTER TABLE `places_prince`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `place_rome_cinema`
+-- Индексы таблицы `place_rome_cinema`
 --
 ALTER TABLE `place_rome_cinema`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `presents`
+-- Индексы таблицы `presents`
 --
 ALTER TABLE `presents`
   ADD PRIMARY KEY (`id`),
   ADD KEY `cinemas_id` (`cinemas_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT для сохранённых таблиц
 --
 
 --
--- AUTO_INCREMENT for table `cinemas`
+-- AUTO_INCREMENT для таблицы `booking`
+--
+ALTER TABLE `booking`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+
+--
+-- AUTO_INCREMENT для таблицы `cinemas`
 --
 ALTER TABLE `cinemas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `orders`
---
-ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `places_cine_cite`
+-- AUTO_INCREMENT для таблицы `places_cine_cite`
 --
 ALTER TABLE `places_cine_cite`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
--- AUTO_INCREMENT for table `places_le_brady`
+-- AUTO_INCREMENT для таблицы `places_le_brady`
 --
 ALTER TABLE `places_le_brady`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
--- AUTO_INCREMENT for table `places_prince`
+-- AUTO_INCREMENT для таблицы `places_prince`
 --
 ALTER TABLE `places_prince`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
--- AUTO_INCREMENT for table `place_rome_cinema`
+-- AUTO_INCREMENT для таблицы `place_rome_cinema`
 --
 ALTER TABLE `place_rome_cinema`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
--- AUTO_INCREMENT for table `presents`
+-- AUTO_INCREMENT для таблицы `presents`
 --
 ALTER TABLE `presents`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- Constraints for dumped tables
+-- Ограничения внешнего ключа сохраненных таблиц
 --
 
 --
--- Constraints for table `cinemas`
+-- Ограничения внешнего ключа таблицы `booking`
+--
+ALTER TABLE `booking`
+  ADD CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`present_id`) REFERENCES `presents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`cinema_id`) REFERENCES `cinemas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `cinemas`
 --
 ALTER TABLE `cinemas`
   ADD CONSTRAINT `cinemas_ibfk_1` FOREIGN KEY (`id`) REFERENCES `presents` (`cinemas_id`);
 
 --
--- Constraints for table `places_le_brady`
+-- Ограничения внешнего ключа таблицы `places_le_brady`
 --
 ALTER TABLE `places_le_brady`
   ADD CONSTRAINT `places_le_brady_ibfk_1` FOREIGN KEY (`cinema_table_id`) REFERENCES `cinemas` (`id`);

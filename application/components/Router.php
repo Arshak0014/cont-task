@@ -28,9 +28,9 @@ class Router
 
         foreach ($this->routes as $pattern => $path)
         {
-
             if (preg_match("~$pattern~",$uri)) {
                 $route = preg_replace("~$pattern~", $path, $uri);
+
                 $segments = explode('/', $route);
 
                 $controllerPath = "application/controllers/";
@@ -41,16 +41,17 @@ class Router
 
                 $controllerName = $controllerPath.ucfirst(array_shift($segments))."Controller";
 
-                $actionName = "action".ucfirst(array_shift($segments));
 
+                $actionName = "action".ucfirst(array_shift($segments));
                 $parameters = $segments;
+
 
                 if (!file_exists($controllerName.'.php')) {
                     header("Location: /not-found-404");
                 }
 
-                $controllerName = str_replace("/", "\\", $controllerName);
 
+                $controllerName = str_replace("/", "\\", $controllerName);
                 $objectName = new $controllerName();
 
                 if (!method_exists($objectName, $actionName)) {
