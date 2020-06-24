@@ -76,5 +76,14 @@
         </div>
     </div>
 </footer>
+<script>
+    $.ajax({
+        url: 'test',
+        success: function(data) {
+            $('.results').text(data);
+        }
+    });
+
+</script>
 </body>
 </html>

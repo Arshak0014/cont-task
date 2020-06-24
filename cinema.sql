@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Июн 19 2020 г., 05:49
+-- Время создания: Июн 25 2020 г., 00:05
 -- Версия сервера: 10.4.11-MariaDB
 -- Версия PHP: 7.2.30
 
@@ -31,29 +31,42 @@ CREATE TABLE `booking` (
   `id` int(11) NOT NULL,
   `cinema_id` int(11) NOT NULL,
   `present_id` int(11) NOT NULL,
-  `status` int(11) NOT NULL
+  `place_id` int(11) NOT NULL,
+  `show_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `booking`
 --
 
-INSERT INTO `booking` (`id`, `cinema_id`, `present_id`, `status`) VALUES
-(24, 4, 14, 1),
-(25, 4, 14, 1),
-(26, 4, 14, 1),
-(27, 6, 14, 1),
-(28, 5, 14, 1),
-(29, 6, 14, 1),
-(30, 3, 14, 1),
-(31, 6, 14, 1),
-(32, 5, 14, 1),
-(33, 5, 14, 1),
-(34, 3, 11, 1),
-(35, 3, 11, 1),
-(64, 4, 14, 1),
-(65, 4, 14, 1),
-(66, 4, 14, 1);
+INSERT INTO `booking` (`id`, `cinema_id`, `present_id`, `place_id`, `show_date`) VALUES
+(1, 5, 18, 18, '2020-06-16'),
+(248, 5, 18, 9, '2020-06-16'),
+(249, 3, 3, 6, '2020-06-17'),
+(250, 5, 9, 1, '2020-06-16'),
+(251, 3, 4, 14, '2020-06-16'),
+(252, 6, 6, 12, '2020-06-17'),
+(253, 4, 2, 17, '2020-06-16'),
+(254, 4, 19, 21, '2020-06-16'),
+(255, 4, 5, 17, '2020-06-16'),
+(256, 4, 19, 22, '2020-06-16'),
+(257, 4, 5, 19, '2020-06-16'),
+(258, 4, 5, 18, '2020-06-16'),
+(259, 6, 10, 22, '2020-06-17'),
+(260, 6, 8, 17, '2020-06-16'),
+(261, 6, 20, 60, '2020-06-16'),
+(262, 3, 3, 5, '2020-06-17'),
+(263, 3, 3, 7, '2020-06-17'),
+(264, 4, 5, 20, '2020-06-16'),
+(265, 3, 4, 15, '2020-06-16'),
+(266, 3, 4, 16, '2020-06-16'),
+(267, 3, 4, 17, '2020-06-16'),
+(268, 3, 16, 6, '2020-06-17'),
+(269, 3, 16, 8, '2020-06-17'),
+(270, 3, 4, 7, '2020-06-16'),
+(271, 3, 4, 6, '2020-06-16'),
+(272, 3, 3, 8, '2020-06-17'),
+(273, 3, 16, 19, '2020-06-17');
 
 -- --------------------------------------------------------
 
@@ -63,281 +76,24 @@ INSERT INTO `booking` (`id`, `cinema_id`, `present_id`, `status`) VALUES
 
 CREATE TABLE `cinemas` (
   `id` int(11) NOT NULL,
-  `places_id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `slug` varchar(100) NOT NULL,
   `description` text NOT NULL,
   `city` varchar(100) NOT NULL,
   `image` varchar(100) NOT NULL,
-  `address` varchar(100) NOT NULL
+  `address` varchar(100) NOT NULL,
+  `places` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `cinemas`
 --
 
-INSERT INTO `cinemas` (`id`, `places_id`, `name`, `slug`, `description`, `city`, `image`, `address`) VALUES
-(3, 3, 'Prince Charles Cinema', 'prince-charles-cinema', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum', 'London', '1920.jpg', '7 Leicester Pl, West End, London WC2H 7BY, United Kingdom'),
-(4, 4, 'Le Brady', 'le-brady', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum', 'Paris', 'def452d8be5295356a0e1a9acdec31ea.jpg', '39 Boulevard de Strasbourg, 75010 Paris, France'),
-(5, 3, 'UGC Cine Cite les Halles', 'ugc-cine-cite-les-halles', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum', 'Paris', 'SP-3773-CinemaParis-Inn.jpg', '101 Rue Berger, 75001 Paris, France'),
-(6, 3, 'Rome Cinemas 8', 'rome-cinemas-8', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum', 'Rome', 'rome-theaters-770x578.jpg', 'Rome St 548');
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `places_cine_cite`
---
-
-CREATE TABLE `places_cine_cite` (
-  `id` int(11) NOT NULL,
-  `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Дамп данных таблицы `places_cine_cite`
---
-
-INSERT INTO `places_cine_cite` (`id`, `status`) VALUES
-(1, 1),
-(2, 1),
-(3, 1),
-(4, 1),
-(5, 1),
-(6, 1),
-(7, 1),
-(8, 1),
-(9, 1),
-(10, 1),
-(11, 1),
-(12, 1),
-(13, 1),
-(14, 1),
-(15, 1),
-(16, 1),
-(17, 1),
-(18, 1),
-(19, 1),
-(20, 1),
-(21, 2),
-(22, 1),
-(23, 1),
-(24, 1),
-(25, 1),
-(26, 1),
-(27, 1),
-(28, 1),
-(29, 1),
-(30, 1),
-(31, 1),
-(32, 1),
-(33, 1),
-(34, 1),
-(35, 1),
-(36, 1),
-(37, 1),
-(38, 1),
-(39, 1),
-(40, 1),
-(41, 1),
-(42, 1),
-(43, 1),
-(44, 1),
-(45, 1),
-(46, 1),
-(47, 1),
-(48, 1),
-(49, 1),
-(50, 1),
-(51, 1),
-(52, 1),
-(53, 1),
-(54, 1),
-(55, 1),
-(56, 1),
-(57, 1),
-(58, 1),
-(59, 1),
-(60, 1);
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `places_le_brady`
---
-
-CREATE TABLE `places_le_brady` (
-  `id` int(11) NOT NULL,
-  `cinema_table_id` int(11) NOT NULL,
-  `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Дамп данных таблицы `places_le_brady`
---
-
-INSERT INTO `places_le_brady` (`id`, `cinema_table_id`, `status`) VALUES
-(1, 4, 1),
-(2, 4, 1),
-(3, 4, 1),
-(4, 4, 1),
-(5, 4, 1),
-(6, 4, 1),
-(7, 4, 1),
-(8, 4, 1),
-(9, 4, 1),
-(10, 4, 1),
-(13, 4, 1),
-(14, 4, 1),
-(15, 4, 1),
-(16, 4, 1),
-(17, 4, 1),
-(18, 4, 1),
-(19, 4, 1),
-(20, 4, 1),
-(21, 4, 1),
-(22, 4, 1),
-(23, 4, 1),
-(24, 4, 1),
-(25, 4, 1),
-(26, 4, 1),
-(27, 4, 1),
-(28, 4, 1),
-(29, 4, 1),
-(30, 4, 1),
-(31, 4, 1),
-(32, 4, 1),
-(33, 4, 1),
-(34, 4, 1),
-(35, 4, 1),
-(36, 4, 1);
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `places_prince`
---
-
-CREATE TABLE `places_prince` (
-  `id` int(11) NOT NULL,
-  `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Дамп данных таблицы `places_prince`
---
-
-INSERT INTO `places_prince` (`id`, `status`) VALUES
-(1, 1),
-(2, 1),
-(3, 1),
-(4, 2),
-(5, 1),
-(6, 1),
-(7, 1),
-(8, 1),
-(9, 1),
-(10, 1),
-(11, 1),
-(12, 1),
-(13, 1),
-(14, 1),
-(15, 1),
-(16, 1),
-(17, 1),
-(18, 1),
-(19, 1),
-(20, 1),
-(21, 1),
-(22, 1),
-(23, 1),
-(24, 1),
-(25, 1),
-(26, 1),
-(27, 1),
-(28, 1),
-(29, 1),
-(30, 1),
-(31, 1),
-(32, 1),
-(33, 1),
-(34, 1),
-(35, 1),
-(36, 1),
-(37, 1),
-(38, 1),
-(39, 1),
-(40, 1),
-(41, 1),
-(42, 1),
-(43, 1);
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `place_rome_cinema`
---
-
-CREATE TABLE `place_rome_cinema` (
-  `id` int(11) NOT NULL,
-  `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Дамп данных таблицы `place_rome_cinema`
---
-
-INSERT INTO `place_rome_cinema` (`id`, `status`) VALUES
-(1, 1),
-(2, 1),
-(3, 1),
-(4, 1),
-(5, 2),
-(6, 1),
-(7, 1),
-(8, 1),
-(9, 1),
-(10, 1),
-(11, 1),
-(12, 1),
-(13, 1),
-(14, 1),
-(15, 1),
-(16, 1),
-(17, 1),
-(18, 1),
-(19, 1),
-(20, 1),
-(21, 1),
-(22, 1),
-(23, 1),
-(24, 1),
-(25, 1),
-(26, 1),
-(27, 1),
-(28, 1),
-(29, 1),
-(30, 1),
-(31, 1),
-(32, 1),
-(33, 1),
-(34, 1),
-(35, 1),
-(36, 1),
-(37, 1),
-(38, 1),
-(39, 1),
-(40, 1),
-(41, 1),
-(42, 1),
-(43, 1),
-(44, 1),
-(45, 1),
-(46, 1),
-(47, 1),
-(48, 1),
-(49, 1),
-(50, 1),
-(51, 1);
+INSERT INTO `cinemas` (`id`, `name`, `slug`, `description`, `city`, `image`, `address`, `places`) VALUES
+(3, 'Prince Charles Cinema', 'prince-charles-cinema', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum', 'London', '1920.jpg', '7 Leicester Pl, West End, London WC2H 7BY, United Kingdom', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36'),
+(4, 'Le Brady', 'le-brady', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum', 'Paris', 'def452d8be5295356a0e1a9acdec31ea.jpg', '39 Boulevard de Strasbourg, 75010 Paris, France', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48'),
+(5, 'UGC Cine Cite les Halles', 'ugc-cine-cite-les-halles', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum', 'Paris', 'SP-3773-CinemaParis-Inn.jpg', '101 Rue Berger, 75001 Paris, France', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36'),
+(6, 'Rome Cinemas 8', 'rome-cinemas-8', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum', 'Rome', 'rome-theaters-770x578.jpg', 'Rome St 548', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60');
 
 -- --------------------------------------------------------
 
@@ -378,7 +134,8 @@ INSERT INTO `presents` (`id`, `cinemas_id`, `film_name`, `film_year`, `image`, `
 (17, 5, 'Portrait of a Lady on Fire', '2020', 'once-upon.jpg', '2020-06-18'),
 (18, 5, 'Artemis Fowl', '2020', 'once-upon.jpg', '2020-06-16'),
 (19, 4, 'Artemis Fowl', '2020', 'wonder.jpg', '2020-06-16'),
-(20, 6, 'Artemis Fowl', '2020', 'joker.jpg', '2020-06-16');
+(20, 6, 'Artemis Fowl', '2020', 'joker.jpg', '2020-06-16'),
+(21, 4, 'Titanic', '1996', 'joker.jpg', '2020-06-22');
 
 --
 -- Индексы сохранённых таблиц
@@ -396,32 +153,6 @@ ALTER TABLE `booking`
 -- Индексы таблицы `cinemas`
 --
 ALTER TABLE `cinemas`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `places_id` (`places_id`);
-
---
--- Индексы таблицы `places_cine_cite`
---
-ALTER TABLE `places_cine_cite`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `places_le_brady`
---
-ALTER TABLE `places_le_brady`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cinema_table_id` (`cinema_table_id`);
-
---
--- Индексы таблицы `places_prince`
---
-ALTER TABLE `places_prince`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `place_rome_cinema`
---
-ALTER TABLE `place_rome_cinema`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -439,7 +170,7 @@ ALTER TABLE `presents`
 -- AUTO_INCREMENT для таблицы `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=274;
 
 --
 -- AUTO_INCREMENT для таблицы `cinemas`
@@ -448,34 +179,10 @@ ALTER TABLE `cinemas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT для таблицы `places_cine_cite`
---
-ALTER TABLE `places_cine_cite`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
-
---
--- AUTO_INCREMENT для таблицы `places_le_brady`
---
-ALTER TABLE `places_le_brady`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
-
---
--- AUTO_INCREMENT для таблицы `places_prince`
---
-ALTER TABLE `places_prince`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
-
---
--- AUTO_INCREMENT для таблицы `place_rome_cinema`
---
-ALTER TABLE `place_rome_cinema`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
-
---
 -- AUTO_INCREMENT для таблицы `presents`
 --
 ALTER TABLE `presents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
@@ -493,12 +200,6 @@ ALTER TABLE `booking`
 --
 ALTER TABLE `cinemas`
   ADD CONSTRAINT `cinemas_ibfk_1` FOREIGN KEY (`id`) REFERENCES `presents` (`cinemas_id`);
-
---
--- Ограничения внешнего ключа таблицы `places_le_brady`
---
-ALTER TABLE `places_le_brady`
-  ADD CONSTRAINT `places_le_brady_ibfk_1` FOREIGN KEY (`cinema_table_id`) REFERENCES `cinemas` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

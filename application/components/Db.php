@@ -6,7 +6,6 @@ namespace application\components;
 
 class Db
 {
-
     public static function getConnection()
     {
         $paramsPath = __DIR__.'/../config/db.php';

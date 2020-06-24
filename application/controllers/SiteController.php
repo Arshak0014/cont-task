@@ -12,6 +12,12 @@ class SiteController extends BaseController
         return true;
     }
 
+    public function actionTest(){
+
+        echo 'Пример 1 - передача завершилась успешно';
+        return true;
+    }
+
 
     public function actionAbout(){
         $this->view->render('site/about');

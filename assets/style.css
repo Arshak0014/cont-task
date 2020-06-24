@@ -123,18 +123,12 @@ ul.social-footer2 li a {display: block;	height:30px;width: 30px;text-align: cent
     background: darkred;
     margin: 2px;
     border-radius: 50%;
-    border: 2px solid greenyellow;
     cursor: pointer;
 }
-.reserved-places:hover{
-    background: red;
-}
+
 .reserved-places a{
     padding: 13px;
     color: darkred;
-}
-.reserved-places a:hover{
-    color: red;
 }
 
 
