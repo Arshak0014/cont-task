@@ -5,7 +5,7 @@ foreach ($data['orders'] as $book){
 }
 $places = explode(',',$data['cinema']['places']);
 ?>
-<h2 style="background: #ff8d1e;padding: 10px;" class="mt-4 mb-4">Film: <?= $data['present']['film_name'] ?></h2>
+<h2 style="background: #ff8d1e;padding: 10px; color: white" class="mt-4 mb-4">Film: "<?= $data['present']['film_name'] ?>"</h2>
 
 <div id="confirm_result">
     <?php if (!empty($_SESSION['confirm_message'])) :?>
@@ -20,13 +20,15 @@ $places = explode(',',$data['cinema']['places']);
     <div class="card" style="width: 12rem;">
         <img style="width: 100%" class="card-img-top" src="../../../assets/images/<?= $data['present']['image'] ?>" alt="Card image cap">
         <div class="card-body">
-            <p class="card-text"><?= $data['present']['film_name'] ?></p>
-            <p class="card-text"><?= $data['present']['film_year'] ?></p>
+            <b>
+                <p class="card-text">Film Name: <?= $data['present']['film_name'] ?></p>
+                <p class="card-text">Film Year: <?= $data['present']['film_year'] ?></p>
+            </b>
         </div>
     </div>
     <div style="display: flex; flex-wrap: wrap">
-        <div style="width: 565px;margin: 0px 70px;">
-            <h2 align="center">Select Your Place</h2>
+        <div style="width: 572px;margin: 0;">
+            <h2 style="background: #ff8d1e;padding: 10px; color: white" class="mt-4 mb-4" >Select Your Place</h2>
             <div class="places_content" style="display: flex; flex-wrap: wrap">
                 <?php foreach ($places as $place) : ?>
 

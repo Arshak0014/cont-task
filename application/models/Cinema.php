@@ -3,9 +3,52 @@
 namespace application\models;
 use application\components\Db;
 use application\components\Router;
+use application\components\Validator;
 
 class Cinema
 {
+    public $cinema_name;
+    public $cinema_description;
+    public $cinema_city;
+    public $cinema_address;
+    public $image;
+
+    public function __construct($post)
+    {
+        if (!empty($post['cinema_name'])){
+            $this->cinema_name = $post['cinema_name'];
+        }
+        if (!empty($post['cinema_description'])){
+            $this->cinema_description = $post['cinema_description'];
+        }
+        if (!empty($post['cinema_city'])){
+            $this->cinema_city = $post['cinema_city'];
+        }
+        if (!empty($post['cinema_address'])){
+            $this->cinema_address = $post['cinema_address'];
+        }
+
+    }
+
+    public function rules()
+    {
+        return [
+            'required' => [
+                'cinema_name' => $this->cinema_name,
+                'cinema_description' => $this->cinema_description,
+                'cinema_city' => $this->cinema_city,
+                'cinema_address' => $this->cinema_address,
+            ]
+        ];
+    }
+
+    public function validate(){
+        $validator = new Validator($this->rules());
+        if (!empty($validator->validate())){
+            return $validator->validate();
+        }
+        return [];
+    }
 
     public static function getCinemas(){
         $db = Db::getConnection();
@@ -16,6 +59,8 @@ class Cinema
         while ($row = $result->fetch()) {
             $cinemas[$i]['id'] = $row['id'];
             $cinemas[$i]['name'] = $row['name'];
+            $cinemas[$i]['slug'] = $row['slug'];
+            $cinemas[$i]['description'] = $row['description'];
             $cinemas[$i]['city'] = $row['city'];
             $cinemas[$i]['image'] = $row['image'];
             $cinemas[$i]['address'] = $row['address'];
@@ -58,7 +103,25 @@ class Cinema
         return $result->fetch();
     }
 
-    public static function getPresents($search_val){
+    public static function getPresents(){
+        $db = Db::getConnection();
+
+        $result = $db->query("SELECT * FROM presents");
+
+        $i = 0;
+        $presents = array();
+        while ($row = $result->fetch()) {
+            $presents[$i]['id'] = $row['id'];
+            $presents[$i]['film_name'] = $row['film_name'];
+            $presents[$i]['film_year'] = $row['film_year'];
+            $presents[$i]['image'] = $row['image'];
+            $presents[$i]['show_date'] = $row['show_date'];
+            $i++;
+        }
+        return $presents;
+    }
+
+    public static function getPresentsSearch($search_val){
         $cinemas_id = Router::getSegment('3');
 
         $db = Db::getConnection();
@@ -102,21 +165,6 @@ class Cinema
         return $presents;
     }
 
-    public static function getPresentById($id){
-
-        $db = Db::getConnection();
-
-        $sql = 'SELECT * FROM presents WHERE id = :id';
-
-        $result = $db->prepare($sql);
-        $result->bindParam(':id', $id, \PDO::PARAM_INT);
-
-        $result->setFetchMode(\PDO::FETCH_ASSOC);
-        $result->execute();
-
-        return $result->fetch();
-    }
-
     public static function setBookingById($cinema_id,$film_id,$place_id,$show_date){
         $create = Db::getConnection()->prepare("INSERT INTO `booking` (`cinema_id`,`present_id`,`place_id`,`show_date`) 
                 VALUES ('$cinema_id','$film_id','$place_id','$show_date')");
@@ -141,5 +189,65 @@ class Cinema
         }
 
         return $bookings;
+    }
+    // admin
+    public $dest;
+    public function createCinema(){
+
+        $slug = Cinema::slugify($this->cinema_name);
+
+        if(isset($_FILES) && $_FILES['cinema_image']['tmp_name'] != '' && $_FILES['cinema_image']['name'] != ''){
+
+            $this->image = $_FILES['cinema_image']['name'];
+            $fileTmpName = $_FILES['cinema_image']['tmp_name'];
+
+            $this->dest = 'assets/images/'.$this->image;
+            move_uploaded_file($fileTmpName,$this->dest);
+        }else{
+            $this->image = 'noimage.png';
+        }
+
+        if ($this->validate() == []){
+
+            $create = Db::getConnection()->prepare("INSERT INTO cinemas (name,slug,description,city,address,image) VALUES 
+                                ('$this->cinema_name','$slug','$this->cinema_description','$this->cinema_city','$this->cinema_address','$this->image')");
+            $create->execute();
+            return true;
+        }
+        return false;
+    }
+
+    public static function deleteCinema($id){
+        $db = Db::getConnection();
+
+        $sql = 'DELETE FROM cinemas WHERE id = :id';
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, \PDO::PARAM_INT);
+        return $result->execute();
+    }
+
+    public function updateCinema($id){
+
+        if(isset($_FILES) && $_FILES['cinema_image']['tmp_name'] != '' && $_FILES['cinema_image']['name'] != ''){
+
+            $this->image = $_FILES['cinema_image']['name'];
+            $fileTmpName = $_FILES['cinema_image']['tmp_name'];
+
+            $this->dest = 'assets/images/'.$this->image;
+            move_uploaded_file($fileTmpName,$this->dest);
+        }else{
+            $this->image = 'noimage.png';
+        }
+
+
+        if ($this->validate() == []){
+            $update = Db::getConnection()->prepare(
+                "UPDATE `cinemas` SET `name` = '$this->cinema_name', `description` = '$this->cinema_description', `city` = '$this->cinema_city', `address` = '$this->cinema_address',`image` = '$this->image' WHERE `cinemas`.`id` = '$id';");
+            $update->execute();
+            return true;
+        }
+        return false;
+
     }
 }

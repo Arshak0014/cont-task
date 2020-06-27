@@ -6,6 +6,7 @@ namespace application\controllers;
 use application\base\BaseController;
 use application\components\Router;
 use application\models\Cinema;
+use application\models\Film;
 
 class CinemaController extends BaseController
 {
@@ -15,6 +16,7 @@ class CinemaController extends BaseController
         $cinemas = Cinema::getCinemas();
         $title = 'Cinemas List';
 
+        $this->view->setTitle('Cinemas List');
         $this->view->render('cinema/index',[
             'cinemas' => $cinemas,
             'title' => $title
@@ -24,8 +26,9 @@ class CinemaController extends BaseController
 
     public function actionDetails($id){
         $cinema = Cinema::getCinemaById($id);
-        $presents = Cinema::getTodayFilms();
+        $presents = Film::getTodayFilms();
 
+        $this->view->setTitle($cinema['name']);
         $this->view->render('cinema/details',[
             'cinema' => $cinema,
             'presents' => $presents,
@@ -40,7 +43,7 @@ class CinemaController extends BaseController
         $search_date = $_POST['search_date'];
 
         $cinema = Cinema::getCinemaById($cinema_id);
-        $presents = Cinema::getPresents($search_val,$search_date);
+        $presents = Cinema::getPresentsSearch($search_val,$search_date);
 
         if (!empty($presents)){
             $output .= '
@@ -83,10 +86,11 @@ class CinemaController extends BaseController
     public function actionPresents($cinemaId){
 
         $id = Router::getSegment(4);
-        $present = Cinema::getPresentById($id);
+        $present = Film::getPresentById($id);
         $cinema = Cinema::getCinemaById($cinemaId);
         $orders = Cinema::getOrders($cinemaId,$id);
 
+        $this->view->setTitle('film: '.$present['film_name']);
         $this->view->render('cinema/presents',[
             'orders' => $orders,
             'present' => $present,
