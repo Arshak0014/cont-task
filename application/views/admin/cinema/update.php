@@ -18,6 +18,11 @@
         <label for="">Image</label><br>
         <input class="" type="file" name="cinema_image" value=""><br>
 
+        <label for="">Cinema`s Places</label><br>
+        <textarea name="cinema_places" class="create_page_inputs"
+                  placeholder="" cols="30" rows="10"><?= $data['cinemas']['places']  ?></textarea><br>
+
+
         <div>
             <?php if (isset($data['validate']) && is_array($data['validate'])): ?>
                 <ul style="list-style: none;padding: 0;margin-top: 20px;">

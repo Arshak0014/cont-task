@@ -1,17 +1,20 @@
 <?php
 
 namespace application\models;
+use application\base\View;
 use application\components\Db;
+use application\components\Pagination;
 use application\components\Router;
 use application\components\Validator;
 
 class Cinema
 {
-    public $cinema_name;
-    public $cinema_description;
-    public $cinema_city;
-    public $cinema_address;
-    public $image;
+    private $cinema_name;
+    private $cinema_description;
+    private $cinema_city;
+    private $cinema_address;
+    private $image;
+    private $cinema_places;
 
     public function __construct($post)
     {
@@ -27,6 +30,9 @@ class Cinema
         if (!empty($post['cinema_address'])){
             $this->cinema_address = $post['cinema_address'];
         }
+        if (!empty($post['cinema_places'])){
+            $this->cinema_places = $post['cinema_places'];
+        }
 
     }
 
@@ -38,6 +44,7 @@ class Cinema
                 'cinema_description' => $this->cinema_description,
                 'cinema_city' => $this->cinema_city,
                 'cinema_address' => $this->cinema_address,
+                'cinema_places' => $this->cinema_places,
             ]
         ];
     }
@@ -50,12 +57,47 @@ class Cinema
         return [];
     }
 
-    public static function getCinemas(){
+    public static function getCinemasForAdmin(){
         $db = Db::getConnection();
-        $result = $db->query("SELECT * FROM cinemas");
+        $result = $db->query("SELECT * FROM cinemas ORDER BY id DESC");
 
         $i = 0;
         $cinemas = array();
+
+        while ($row = $result->fetch()) {
+            $cinemas[$i]['id'] = $row['id'];
+            $cinemas[$i]['name'] = $row['name'];
+            $cinemas[$i]['slug'] = $row['slug'];
+            $cinemas[$i]['description'] = $row['description'];
+            $cinemas[$i]['city'] = $row['city'];
+            $cinemas[$i]['image'] = $row['image'];
+            $cinemas[$i]['address'] = $row['address'];
+            $i++;
+        }
+
+        return $cinemas;
+    }
+
+    public static function getCinemas(){
+        $page = Router::getPage();
+        $thisUri = $_SERVER['REQUEST_URI'];
+
+        if ($thisUri ==  "/cinema"){
+            View::redirect("/cinema/1");
+        }
+
+        $pagination = new Pagination('/cinema','cinemas','4','4');
+
+        $limit = $pagination->limit;
+        $res_per_page = $pagination->result_per_page;
+        $this_page_first_result = ($page - 1) * $res_per_page;
+
+        $db = Db::getConnection();
+        $result = $db->query("SELECT * FROM cinemas ORDER BY id DESC LIMIT $this_page_first_result,$limit");
+
+        $i = 0;
+        $cinemas = array();
+
         while ($row = $result->fetch()) {
             $cinemas[$i]['id'] = $row['id'];
             $cinemas[$i]['name'] = $row['name'];
@@ -209,8 +251,9 @@ class Cinema
 
         if ($this->validate() == []){
 
-            $create = Db::getConnection()->prepare("INSERT INTO cinemas (name,slug,description,city,address,image) VALUES 
-                                ('$this->cinema_name','$slug','$this->cinema_description','$this->cinema_city','$this->cinema_address','$this->image')");
+
+            $create = Db::getConnection()->prepare("INSERT INTO cinemas (name,slug,description,city,address,image,places) VALUES 
+                                ('$this->cinema_name','$slug','$this->cinema_description','$this->cinema_city','$this->cinema_address','$this->image','$this->cinema_places')");
             $create->execute();
             return true;
         }
@@ -243,7 +286,7 @@ class Cinema
 
         if ($this->validate() == []){
             $update = Db::getConnection()->prepare(
-                "UPDATE `cinemas` SET `name` = '$this->cinema_name', `description` = '$this->cinema_description', `city` = '$this->cinema_city', `address` = '$this->cinema_address',`image` = '$this->image' WHERE `cinemas`.`id` = '$id';");
+                "UPDATE `cinemas` SET `name` = '$this->cinema_name', `description` = '$this->cinema_description', `city` = '$this->cinema_city', `address` = '$this->cinema_address',`image` = '$this->image',`places` = '$this->cinema_places' WHERE `cinemas`.`id` = '$id';");
             $update->execute();
             return true;
         }

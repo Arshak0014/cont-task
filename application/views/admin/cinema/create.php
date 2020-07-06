@@ -17,7 +17,12 @@
     <label for="">Image</label><br>
     <input class="" type="file" name="cinema_image" value="<?= isset($_FILES["image"]["name"]) ? $_FILES["image"]["name"] : null  ?>"><br>
 
-    <div>
+    <label for="">Cinema`s Places *</label><br>
+    <textarea name="cinema_places" class="create_page_inputs"
+              placeholder="Write escription" cols="30" rows="10"><?= isset($_POST['cinema_places']) ? $_POST['cinema_places'] : null  ?></textarea><br>
+
+
+        <div>
         <?php if (isset($data['validate']) && is_array($data['validate'])): ?>
             <ul style="list-style: none;padding: 0;margin-top: 20px;">
                 <?php foreach ($data['validate'] as $error): ?>

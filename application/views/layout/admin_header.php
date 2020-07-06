@@ -50,11 +50,6 @@
                         FILMS
                     </a>
                 </li>
-                <li class="my_nav_it nav-item">
-                    <a style="background: #32383e;padding: 20px;" class="nav-link" href="#">
-                        BOOKINGS
-                    </a>
-                </li>
             </ul>
         </div>
     </div>
@@ -72,7 +67,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/logout">
                                 LOG OUT
                             </a>
                         </li>

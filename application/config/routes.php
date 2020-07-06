@@ -2,6 +2,8 @@
 
 return array(
 
+    'login' => 'user/login',
+    'logout' => 'user/logout',
     'admin/present/delete/([0-9]+)' => 'admin/present/delete/$1',
     'admin/present/update/([0-9]+)' => 'admin/present/update/$1',
     'admin/present/create' => 'admin/present/create',
@@ -17,6 +19,7 @@ return array(
     'cinema/booking/([0-9]+)' => 'cinema/booking/$1',
     'cinema/view/([0-9]+)' => 'cinema/details/$1',
     'cinema/time/([0-9]+)' => 'cinema/time/$1',
+    'cinema/([0-9]+)' => 'cinema/index/$1',
     'cinema' => 'cinema/index',
 
 

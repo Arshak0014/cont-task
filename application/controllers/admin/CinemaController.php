@@ -4,15 +4,20 @@ namespace application\controllers\admin;
 
 use application\base\AdminBaseController;
 use application\base\View;
+use application\components\Auth;
 use application\models\Cinema;
 
 class CinemaController extends AdminBaseController
 {
     public function actionIndex(){
+        if (Auth::isGuest()){
+            View::redirect('/login');
+        }
+
         $title = 'Cinemas';
         $this->view->setTitle($title);
 
-        $cinemas = Cinema::getCinemas();
+        $cinemas = Cinema::getCinemasForAdmin();
 
         $this->view->render('admin/cinema/index',[
             'title' => $title,
@@ -21,6 +26,9 @@ class CinemaController extends AdminBaseController
         return true;
     }
     public function actionCreate(){
+        if (Auth::isGuest()){
+            View::redirect('/login');
+        }
 
         if (!empty($_POST) && isset($_POST['submit'])){
             $cinema_model = new Cinema($_POST);
@@ -47,6 +55,9 @@ class CinemaController extends AdminBaseController
     }
 
     public function actionUpdate($id){
+        if (Auth::isGuest()){
+            View::redirect('/login');
+        }
 
         $cinemas = Cinema::getCinemaById($id);
 

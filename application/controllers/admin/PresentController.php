@@ -6,12 +6,16 @@ namespace application\controllers\admin;
 
 use application\base\AdminBaseController;
 use application\base\View;
+use application\components\Auth;
 use application\models\Cinema;
 use application\models\Film;
 
 class PresentController extends AdminBaseController
 {
     public function actionIndex(){
+        if (Auth::isGuest()){
+            View::redirect('/login');
+        }
 
         $title = 'Films';
         $presents = Film::getPresents();
@@ -24,6 +28,9 @@ class PresentController extends AdminBaseController
     }
 
     public function actionCreate(){
+        if (Auth::isGuest()){
+            View::redirect('/login');
+        }
 
         if (!empty($_POST) && isset($_POST['submit'])){
             $film_model = new Film($_POST);
@@ -50,6 +57,10 @@ class PresentController extends AdminBaseController
     }
 
     public function actionUpdate($id){
+        if (Auth::isGuest()){
+            View::redirect('/login');
+        }
+
         $present = Film::getPresentById($id);
         $cinemas = Cinema::getCinemas();
 

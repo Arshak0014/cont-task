@@ -30,6 +30,18 @@ class Validator
                     return $data;
                 }
             }
+
+            if (isset($rules['password'])) {
+                $password = $rules['password'];
+                foreach ($password as $key=>$value) {
+                    if (strlen($value) < 3 || strlen($value) > 20) {
+                        $data[$key] = ucfirst(str_replace('_', ' ', $key).' must be at least 3 chars');
+                    }
+                }
+                if (!empty($data)) {
+                    return $data;
+                }
+            }
         }
         return [];
     }

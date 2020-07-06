@@ -67,7 +67,7 @@ class CinemaController extends BaseController
                     <td> '.$present['film_name'].' </td>
                     <td> '.$present['film_year'].' </td>
                     <td> '.$present['show_date'].' </td>
-                    <td><a class="buy-tick" href="/cinema/presents/'.$cinema['id'].'/'.$present['id'].'">Book</a></td>
+                    <td><a class="btn btn-warning" style="font-weight: bold;color: white" href="/cinema/presents/'.$cinema['id'].'/'.$present['id'].'">BOOK</a></td>
                 </tr>
                 ';
             }
@@ -90,20 +90,29 @@ class CinemaController extends BaseController
         $cinema = Cinema::getCinemaById($cinemaId);
         $orders = Cinema::getOrders($cinemaId,$id);
 
+        $places_m = array();
+        foreach ($orders as $book){
+            array_push($places_m,$book['place_id']);
+        }
+        $places = json_decode($cinema['places']);
+//      $places = explode(',',$data['cinema']['places']);
+
         $this->view->setTitle('film: '.$present['film_name']);
         $this->view->render('cinema/presents',[
             'orders' => $orders,
             'present' => $present,
             'cinemaId' => $cinemaId,
-            'cinema' => $cinema
+            'cinema' => $cinema,
+            'places' => $places,
+            'places_m' => $places_m
         ]);
         return true;
     }
 
-    public function actionBooking($placeId){
+    public function actionBooking(){
         $confirm_result = '';
 
-        $_SESSION["confirm_message"] = "Booking confirmed.";
+        $_SESSION["confirm_message"] = "Your booking is confirmed.";
 
         $cinema_id = $_POST['cinema_id'];
         $film_id = $_POST['film_id'];
