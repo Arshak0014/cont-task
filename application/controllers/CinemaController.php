@@ -122,7 +122,7 @@ class CinemaController extends BaseController
         if (isset($place_id)){
             Cinema::setBookingById($cinema_id,$film_id,$place_id,$show_date);
         }
-            $confirm_result .= '
+        $confirm_result .= '
                 <div align="center" class="alert alert-success" role="alert">
                     Booking confirmed.
                 </div>

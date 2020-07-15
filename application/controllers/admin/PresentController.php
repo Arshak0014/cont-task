@@ -46,7 +46,7 @@ class PresentController extends AdminBaseController
             }
         }
 
-        $cinemas = Cinema::getCinemas();
+        $cinemas = Cinema::getCinemasForAdmin();
         $title = 'Create Films';
 
         $this->view->setTitle($title);
