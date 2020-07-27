@@ -90,7 +90,7 @@ class Cinema
 
         $limit = $pagination->limit;
         $res_per_page = $pagination->result_per_page;
-        $this_page_first_result = ($page - 1) * $res_per_page;
+        $this_page_first_result = ((int)$page - 1) * $res_per_page;
 
         $db = Db::getConnection();
         $result = $db->query("SELECT * FROM cinemas ORDER BY id DESC LIMIT $this_page_first_result,$limit");

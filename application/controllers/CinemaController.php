@@ -15,13 +15,17 @@ class CinemaController extends BaseController
 
         $cinemas = Cinema::getCinemas();
         $title = 'Cinemas List';
+        $page = Router::getSegment(2);
 
         $this->view->setTitle('Cinemas List');
-        $this->view->render('cinema/index',[
-            'cinemas' => $cinemas,
-            'title' => $title
-        ]);
-        return true;
+        if (!empty($cinemas) && preg_match('/^[0-9]+$/', $page)){
+            $this->view->render('cinema/index',[
+                'cinemas' => $cinemas,
+                'title' => $title
+            ]);
+            return true;
+        }
+            return false;
     }
 
     public function actionDetails($id){
